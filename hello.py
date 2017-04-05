@@ -1,8 +1,8 @@
 from Tkinter import *
 import urllib2
 import json
-#from PIL import ImageTk, Image
-import Pillow
+from PIL import ImageTk, Image
+#import Pillow
 
 class App:
 
