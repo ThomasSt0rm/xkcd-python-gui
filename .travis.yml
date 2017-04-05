@@ -1,5 +1,5 @@
 language: python
 python:
   - "2.7"
-install: echo hello
+install: pip install -r requirements.txt
 script: python hello.py
