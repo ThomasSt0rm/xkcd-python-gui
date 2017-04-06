@@ -2,7 +2,8 @@ from Tkinter import *
 import urllib2
 import json
 from PIL import ImageTk, Image
-#import Pillow
+import tempfile
+import wget
 
 class App:
 
@@ -16,19 +17,19 @@ class App:
             )
         self.button.pack(side=LEFT)
 
-        self.xkcdbutton = Button(frame, text="Hello", command=self.xkcd)
+        self.xkcdbutton = Button(frame, text="XKCD", command=self.xkcd)
         self.xkcdbutton.pack(side=LEFT)
 
     def xkcd(self):
-        #print "hi there, everyone!"
         reqxkcd = urllib2.urlopen('http://xkcd.com/info.0.json')
-        json = json.load(reqxkcd)
-        image_url = json['img']
-        image_object_request = urllib2.Request(image_url)
-        image_object_response = urllib2.urlopen(image_object_request)
-        panel = Label(root, image = image_object_response)
+        content = json.load(reqxkcd)
+        image_url = content['img']
+        tempfilename = tempfile.gettempdir() + "\comic.png"
+        imagefile = wget.download(image_url, out = tempfilename)        
+        appimage = ImageTk.PhotoImage(Image.open(tempfilename))
+        panel = Label(root, image = appimage)
+        panel.image = appimage
         panel.pack(side = "bottom", fill = "both", expand = "yes")
-
 
 root = Tk()
 
